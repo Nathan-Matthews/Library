@@ -11,20 +11,34 @@ function Book(title, author, pages, readBool){
   }
 }
 
+// When 'Add book' is clicked, retrieved the form inputs.
 const addBook = document.querySelector(".add");
-addBook.addEventListener("click", addBookToLibrary);
+addBook.addEventListener("click", createNewBookObject);
 /*
-  Add button functionality to click and have the form animate
-  into frame
+  able to get form info in 'createNewBookObject' but
+  it is not being added to myLibrary properly.
 
-  Will need to look up how to create an object out of the info
-  that a user puts in a form.
+  Also pages is being read as a string.
 */
 
+// Use the form inputs to create a new book object and then 
+// add the book to the library.
+function createNewBookObject() {
+  let title = document.getElementById("title").value;
+  let author = document.getElementById("author").value;
+  let pages = document.getElementById("pages").value;
+  let readBool = document.getElementById("readBool").value;
+
+  const book = new Book(title, author, pages, readBool);
+  addBookToLibrary(book);
+  displayLibrary(myLibrary);
+
+  return;
+}
+
 function addBookToLibrary(book) {
+  book.index = myLibrary.length;  
   myLibrary.push(book);
-  //Add an index for the book
-  book.index = myLibrary.length - 1;
   return;
 }
 // Selector to target library container
@@ -50,7 +64,5 @@ addBookToLibrary(theHobbit);
 addBookToLibrary(deepWork);
 addBookToLibrary(theMartian);
 addBookToLibrary(theOneThing);
-
-displayLibrary(myLibrary);
 
 
