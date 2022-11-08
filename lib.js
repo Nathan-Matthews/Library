@@ -21,6 +21,12 @@ addBook.addEventListener("click", createNewBookObject);
   Also pages is being read as a string.
 */
 
+function removeAllChildNodes(parent) {
+  while(parent.firstChild){
+      parent.removeChild(parent.firstChild);
+  }
+}
+
 // Use the form inputs to create a new book object and then 
 // add the book to the library.
 function createNewBookObject() {
@@ -44,6 +50,7 @@ function addBookToLibrary(book) {
 // Selector to target library container
 const lib = document.querySelector(".library");
 function displayLibrary(myLibrary) {
+  removeAllChildNodes(lib);
   for(i = 0; i < myLibrary.length; i++){
     console.log(myLibrary[i]);
 
