@@ -36,40 +36,47 @@ function createNewBookObject() {
   let readBool = document.getElementById("readBool").value;
 
   const book = new Book(title, author, pages, readBool);
-  addBookToLibrary(book);
+
+  book.index = myLibrary.length;  
+  myLibrary.push(book);
+
   displayLibrary(myLibrary);
 
   return;
 }
 
-function addBookToLibrary(book) {
-  book.index = myLibrary.length;  
-  myLibrary.push(book);
-  return;
-}
 // Selector to target library container
 const lib = document.querySelector(".library");
 function displayLibrary(myLibrary) {
-  removeAllChildNodes(lib);
+  //removeAllChildNodes(lib);
   for(i = 0; i < myLibrary.length; i++){
     console.log(myLibrary[i]);
 
     // Create a new div to append to the library container
-    const div = document.createElement("div");
+
+    //const divContainer = document.createElement("div");
+    const divTitle = document.createElement("div");
+    //const divAuthor = document.createElement("div");
+    //const divPages = document.createElement("div");
+
     // Add the title of the book to the text content of div
-    div.textContent = myLibrary[i].title;
+
+    divTitle.textContent = myLibrary[i].title;
+    //divAuthor.textContent = myLibrary[i].author;
+    //divPages.textContent = myLibrary[i].pages;
+
     // Append the div to the library container
-    document.querySelector(".library").appendChild(div);
+    document.querySelector(".library").appendChild(divTitle);
   }
 }
 
-const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
-const deepWork = new Book("Deep Work", "Cal N.", 260, true);
-const theMartian = new Book("The Martian", "Andy W.", 300, true);
-const theOneThing = new Book("The One Thing", "Gary S.", 168, false);
-addBookToLibrary(theHobbit);
-addBookToLibrary(deepWork);
-addBookToLibrary(theMartian);
-addBookToLibrary(theOneThing);
+// const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
+// const deepWork = new Book("Deep Work", "Cal N.", 260, true);
+// const theMartian = new Book("The Martian", "Andy W.", 300, true);
+// const theOneThing = new Book("The One Thing", "Gary S.", 168, false);
+// addBookToLibrary(theHobbit);
+// addBookToLibrary(deepWork);
+// addBookToLibrary(theMartian);
+// addBookToLibrary(theOneThing);
 
 

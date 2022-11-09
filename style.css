@@ -39,6 +39,11 @@
     gap: 8px;
 }
 
+.library div {
+    border: 2px solid black;
+    
+}
+
 
 .footer {
     display: flex;
