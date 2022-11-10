@@ -1,20 +1,26 @@
+// Array for Library, holds all book objects.
 let myLibrary = [];
 
+// Constructor for Book object
 function Book(title, author, pages, readBool){
   this.title = title
   this.author = author
   this.pages = pages
   this.readBool = readBool
-  //this.index
-  // this.info = function() {
-  //   return title + ' by ' + author + ' , ' + pages + ' , ' + readBool;
-  // }
+  this.index
+  this.info = function() {
+    return title + ' by ' + author + ' , ' + pages + ' , ' + readBool;
+  }
 }
 
-// When 'Add book' is clicked, retrieved the form inputs.
+// When 'Add book' is clicked, retrieve the form inputs.
 const addBook = document.querySelector(".add");
 addBook.addEventListener("click", displayLibrary);
 
+// Selector to target library container
+const lib = document.querySelector(".library");
+
+// Removes all child nodes from a parent.
 function removeAllChildNodes(parent) {
   while(parent.firstChild){
       parent.removeChild(parent.firstChild);
@@ -27,22 +33,20 @@ function createNewBookObject() {
   let title = document.getElementById("title").value;
   let author = document.getElementById("author").value;
   let pages = document.getElementById("pages").value;
-  let readBool = document.getElementById("readBool").value;
+  let readBool = document.getElementById("readBool").checked;
 
-  const book = new Book(title, author, pages, readBool);
-
-  //book.index = myLibrary.length;  
-  myLibrary.push(book);
+  const book = new Book(title, author, pages, readBool);  
+  addBookToLibrary(book);
 }
-// Old function to add book to library
-// Removed since caused issues
-// function addBookToLibrary(book) {
-//   book.index = myLibrary.length;  
-//   myLibrary.push(book);
-//   return;
-// }
-// Selector to target library container
-const lib = document.querySelector(".library");
+// Adds a book to the library array.
+function addBookToLibrary(book) {
+  book.index = myLibrary.length;  
+  myLibrary.push(book);
+  return;
+}
+
+
+// Removes all child nodes of library and recreates the display from myLibrary plus the newBook Object.
 function displayLibrary() {
   removeAllChildNodes(lib);
   createNewBookObject();
@@ -50,28 +54,43 @@ function displayLibrary() {
     console.log(myLibrary[i]);
 
     // Create a new div to append to the library container
-
-    //const divContainer = document.createElement("div");
+    const divContainer = document.createElement("div");
     const divTitle = document.createElement("div");
-    //const divAuthor = document.createElement("div");
-    //const divPages = document.createElement("div");
+    const divAuthor = document.createElement("div");
+    const divPages = document.createElement("div");
+    const divReadBool = document.createElement("div");
 
-    // Add the title of the book to the text content of div
-
+    // Add the content of the book to the textcontent
     divTitle.textContent = myLibrary[i].title;
-    //divAuthor.textContent = myLibrary[i].author;
-    //divPages.textContent = myLibrary[i].pages;
+    divAuthor.textContent = myLibrary[i].author;
+    divPages.textContent = myLibrary[i].pages;
 
-    // Append the div to the library container
-    document.querySelector(".library").appendChild(divTitle);
+    // Checks the checkbox to see if the book has been read yet.
+    if(myLibrary[i].readBool){
+      divReadBool.textContent = "You have read this book.";
+    }
+    else{
+      divReadBool.textContent = "You have NOT read this book yet!";
+    }
+
+    // Append the book container to the library container and then the info to the book container.
+    document.querySelector(".library").appendChild(divContainer);
+    divContainer.appendChild(divTitle);
+    divContainer.appendChild(divAuthor);
+    divContainer.appendChild(divPages);
+    divContainer.appendChild(divReadBool);
+
   }
 }
 
-// const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
-// const deepWork = new Book("Deep Work", "Cal N.", 260, true);
-// const theMartian = new Book("The Martian", "Andy W.", 300, true);
-// const theOneThing = new Book("The One Thing", "Gary S.", 168, false);
-// addBookToLibrary(theHobbit);
-// addBookToLibrary(deepWork);
-// addBookToLibrary(theMartian);
-// addBookToLibrary(theOneThing);
+// Example Books
+const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
+const deepWork = new Book("Deep Work", "Cal N.", 260, true);
+const theMartian = new Book("The Martian", "Andy W.", 300, true);
+const theOneThing = new Book("The One Thing", "Gary S.", 168, false);
+addBookToLibrary(theHobbit);
+addBookToLibrary(deepWork);
+addBookToLibrary(theMartian);
+addBookToLibrary(theOneThing);
+
+displayLibrary();
