@@ -15,7 +15,31 @@ function Book(title, author, pages, readBool){
 
 // When 'Add book' is clicked, retrieve the form inputs.
 const addBook = document.querySelector(".add");
-addBook.addEventListener("click", displayLibrary);
+addBook.addEventListener("click", function(){
+  displayLibrary(true);
+}, false);
+
+document.querySelectorAll('.delete').forEach(item => {
+  item.addEventListener('click', event => {
+    console.log("You made it!");
+  })
+})
+
+// Deletes a book from myLibrary
+function removeBookFromLibrary(name) {
+  console.log(name.slice(-1))
+  myLibrary.splice(parseInt(name.slice(-1)),1);
+  updateLibraryIndex();
+  displayLibrary(false);
+  console.log(myLibrary);
+}
+
+// Updates the Library index after a book is deleted.
+function updateLibraryIndex(){
+  for(let i = 0; i < myLibrary.length; i++){
+    myLibrary[i].index = i;
+  }
+}
 
 // Selector to target library container
 const lib = document.querySelector(".library");
@@ -47,20 +71,28 @@ function addBookToLibrary(book) {
 
 
 // Removes all child nodes of library and recreates the display from myLibrary plus the newBook Object.
-function displayLibrary() {
+function displayLibrary(addNewBookBool) {
   removeAllChildNodes(lib);
-  createNewBookObject();
+  // If the call was made by clicking "add book" create a new book object
+  // This prevents this call from being made when deleting a book
+  if(addNewBookBool){
+    createNewBookObject();
+  }
   for(i = 0; i < myLibrary.length; i++){
     console.log(myLibrary[i]);
 
     // Create a new div to append to the library container
     const divContainer = document.createElement("div");
+    const divButton = document.createElement("button");
     const divTitle = document.createElement("div");
     const divAuthor = document.createElement("div");
     const divPages = document.createElement("div");
     const divReadBool = document.createElement("div");
 
     // Add the content of the book to the textcontent
+    divButton.textContent = "Delete";
+    divButton.className = "delete ";
+    divButton.className += i;
     divTitle.textContent = myLibrary[i].title;
     divAuthor.textContent = myLibrary[i].author;
     divPages.textContent = myLibrary[i].pages;
@@ -75,13 +107,23 @@ function displayLibrary() {
 
     // Append the book container to the library container and then the info to the book container.
     document.querySelector(".library").appendChild(divContainer);
+    divContainer.appendChild(divButton);
     divContainer.appendChild(divTitle);
     divContainer.appendChild(divAuthor);
     divContainer.appendChild(divPages);
     divContainer.appendChild(divReadBool);
 
   }
+  // Add the event listener for the delete buttons after they
+  // are recreated each time since they are dynamically created.
+  document.querySelectorAll('.delete').forEach(item => {
+    item.addEventListener('click', event => {
+      removeBookFromLibrary(item.className);
+      item.parentElement.remove();
+    })
+  })
 }
+
 
 // Example Books
 const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
@@ -93,4 +135,4 @@ addBookToLibrary(deepWork);
 addBookToLibrary(theMartian);
 addBookToLibrary(theOneThing);
 
-displayLibrary();
+displayLibrary(false);
