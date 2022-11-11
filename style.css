@@ -1,8 +1,25 @@
+body,
+html {
+    margin: 1rem;
+    font-size: large;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+
+}
+
+
 .header {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    background-color: slategray;
+    border-radius: 25px;
+    border: 8px solid black;
 
     margin: 1em;
     padding: 1em;
@@ -24,10 +41,45 @@
     flex-direction: column;
     border: 4px solid black;
 
+    background-color: slategray;
+
     gap: 16px;
     padding: 2em;
     margin: 2em;
 }
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: slategray;
+    border-radius: 15px;
+    border: 4px solid black;
+}
+
+.delete {
+    align-self: flex-end;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 25px;
+
+    background-color: white;
+    border: 2px solid darkred;
+    color: black;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.delete:active {
+    background-color: gray;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
 
 .library {
     display: grid;
@@ -36,19 +88,17 @@
     justify-content: center;
     text-align: center;
 
-    gap: 8px;
+    gap: 16px;
 }
-
-.library div {
-    border: 2px solid black;
-    
-}
-
 
 .footer {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: slategray;
+    border-radius: 15px;
+    border: 4px solid black;
 
     margin: 1em;
     padding: 1em;

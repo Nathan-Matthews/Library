@@ -10,7 +10,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>Library App</h1>
+        <h1>Welcome to my library</h1>
 
     </header>
 
@@ -19,10 +19,10 @@
         <input type="text" id="title" name="title" placeholder="The Hobbit">
         <label  for="author">Author:</label>
         <input type="text" id="author" name="author" placeholder="J. R. R. Tolkien">
-        <label  for="pages">Pages:</label>
-        <input type="number" id="pages" name="pages" placeholder="304"> 
+        <label  for="rating">Rating 0-5:</label>
+        <input type="number" min="0" max="5" id="rating" name="rating" placeholder="0"> 
         <label  for="readBool">Have you read this book?</label>
-        <input type="checkbox" id="readBool" name="readBool">
+        <input type="checkbox" class="checkbox" id="readBool" name="readBool">
         <button class="button add">
             Add book
         </button>
