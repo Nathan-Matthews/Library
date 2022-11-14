@@ -32,9 +32,18 @@ addBook.addEventListener("click", function(){
 
 // Deletes a book from myLibrary
 function removeBookFromLibrary(name) {
-  myLibrary.splice(parseInt(name.slice(-1)),1);
-  updateLibraryIndex();
-  displayLibrary(false);
+  let libraryLengthCheck = Math.floor(myLibrary.length / 10) > 0;
+  if(libraryLengthCheck){
+    myLibrary.splice(parseInt(name.slice(-2)),2);
+    updateLibraryIndex();
+    displayLibrary(false);
+  }
+  else{
+    myLibrary.splice(parseInt(name.slice(-1)),1);
+    updateLibraryIndex();
+    displayLibrary(false);
+  }
+
 }
 
 // Updates the Library index after a book is deleted.
@@ -126,11 +135,25 @@ function displayLibrary(addNewBookBool) {
     })
   })
 
+  // Event listener for the book 'have read' check boxes.
   document.querySelectorAll('input[type=checkbox]').forEach(item => {
     item.addEventListener('click', event => {
+      // Prevents 'Add book' checkbox from attempting to changeReadBool
       if(item.className == 'checkbox'){return;}
-      let name = parseInt(item.parentElement.firstChild.className.slice((-1)));
-      myLibrary[name].changeReadBool();
+
+      // Targets the 'delete' button and slices off the number part of the class name
+      // This provides an index of the library that we are working with.
+      // Library length check adjusts the slice value for libraries > 10
+      let libraryLengthCheck = Math.floor(myLibrary.length / 10) > 0;
+      if(libraryLengthCheck){
+        let name = parseInt(item.parentElement.firstChild.className.slice((-2)));
+        myLibrary[name].changeReadBool();
+      }
+      else{
+        let name = parseInt(item.parentElement.firstChild.className.slice((-1)));
+        myLibrary[name].changeReadBool();
+      }
+      
     })
   })
 
