@@ -13,6 +13,17 @@ function Book(title, author, rating, readBool){
   }
 }
 
+Book.prototype.changeReadBool = function() {
+  if(this.readBool){
+    this.readBool = false;
+    displayLibrary();
+    return;
+  }
+  this.readBool = true;
+  displayLibrary();
+  return;
+};
+
 // When 'Add book' is clicked, retrieve the form inputs.
 const addBook = document.querySelector(".add");
 addBook.addEventListener("click", function(){
@@ -61,7 +72,6 @@ function addBookToLibrary(book) {
   return;
 }
 
-
 // Removes all child nodes of library and recreates the display from myLibrary plus the newBook Object.
 function displayLibrary(addNewBookBool) {
   removeAllChildNodes(lib);
@@ -77,15 +87,17 @@ function displayLibrary(addNewBookBool) {
     const divTitle = document.createElement("div");
     const divAuthor = document.createElement("div");
     const divRating = document.createElement("div");
-    const divReadBool = document.createElement("checkbox");
+
+    const divReadBool = document.createElement("INPUT");
+    divReadBool.setAttribute("type", "checkbox");
 
     // Add the content of the book to the textcontent
     divButton.textContent = "X";
     divButton.className = "delete ";
     divButton.className += i;
-    divTitle.textContent = myLibrary[i].title;
-    divAuthor.textContent = myLibrary[i].author;
-    divRating.textContent = myLibrary[i].rating;
+    divTitle.textContent = "Title: " + myLibrary[i].title;
+    divAuthor.textContent = "Author: " + myLibrary[i].author;
+    divRating.textContent = "My Rating: " + myLibrary[i].rating;
 
     // Checks the checkbox to see if the book has been read yet.
     if(myLibrary[i].readBool){
@@ -94,7 +106,6 @@ function displayLibrary(addNewBookBool) {
     else{
       divReadBool.checked = false;
     }
-    divReadBool.textContent = "Read Status:";
 
     // Append the book container to the library container and then the book info to the book container.
     document.querySelector(".library").appendChild(divContainer);
@@ -114,6 +125,15 @@ function displayLibrary(addNewBookBool) {
       item.parentElement.remove();
     })
   })
+
+  document.querySelectorAll('input[type=checkbox]').forEach(item => {
+    item.addEventListener('click', event => {
+      if(item.className == 'checkbox'){return;}
+      let name = parseInt(item.parentElement.firstChild.className.slice((-1)));
+      myLibrary[name].changeReadBool();
+    })
+  })
+
 }
 
 
