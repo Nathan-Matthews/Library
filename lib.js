@@ -2,27 +2,26 @@
 let myLibrary = [];
 
 // Constructor for Book object
-function Book(title, author, rating, readBool){
-  this.title = title
-  this.author = author
-  this.rating = rating
-  this.readBool = readBool
-  this.index
-  this.info = function() {
-    return title + ' by ' + author + ' , ' + rating + ' , ' + readBool;
+class Book {
+  constructor(title, author, rating, readBool) {
+    this.title = title;
+    this.author = author;
+    this.rating = rating;
+    this.readBool = readBool;
+    this.index;
   }
-}
-
-Book.prototype.changeReadBool = function() {
-  if(this.readBool){
-    this.readBool = false;
+  changeReadBool() {
+    if (this.readBool) {
+      this.readBool = false;
+      displayLibrary();
+      return;
+    }
+    this.readBool = true;
     displayLibrary();
     return;
   }
-  this.readBool = true;
-  displayLibrary();
-  return;
-};
+}
+
 
 // When 'Add book' is clicked, retrieve the form inputs.
 const addBook = document.querySelector(".add");
